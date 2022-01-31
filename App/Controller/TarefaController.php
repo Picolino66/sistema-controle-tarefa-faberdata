@@ -10,7 +10,7 @@ class TarefaController{
   public function __construct(){
     $this->tarefaModel = new TarefaModel();
   }
-  //POST - Cria um novo tarefa
+  //POST - Cria uma novo tarefa
   function create($data = null){
     $tarefa = $this->convertType($data);
     $result = $this->validate($tarefa);
@@ -22,7 +22,7 @@ class TarefaController{
     return json_encode(["result" =>$this->tarefaModel->create($tarefa)]);
   }
 
-  //PUT - Altera um tarefa
+  //PUT - Altera uma tarefa
   function update($id = 0, $data = null){
     $tarefa = $this->convertType($data);
     $tarefa->setId($id);
@@ -36,7 +36,7 @@ class TarefaController{
     return  json_encode(["result" => $this->tarefaModel->update($tarefa)]);
   }
 
-  //DELETE - Remove um tarefa
+  //DELETE - Remove uma tarefa
   function delete($id = 0){
     $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
@@ -48,26 +48,27 @@ class TarefaController{
     return  json_encode(["result" => $result]);
   }
 
-  //GET - Retorna um tarefa pelo ID
-  function getById($id = 0){
+  //GET - Retorna uma tarefa pelo ID
+  function readById($id = 0){
     $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
     if($id <= 0)
       return json_encode(["result" => "invalid id"]);
 
-      return $this->tarefaModel->getById($id);
+      return $this->tarefaModel->readById($id);
   }
 
-  //GET - Retorna todos os tarefas
-  function getAll(){
-    return $this->tarefaModel->getAll();
+  //GET - Retorna todos as tarefas
+  function readAll(){
+    return $this->tarefaModel->readAll();
   }
 
   private function convertType($data){
     return new Tarefa(
       null,
       (isset($data['titulo']) ? filter_var($data['titulo'], FILTER_SANITIZE_STRING) : null),
-      (isset($data['descricao']) ? filter_var($data['descricao'], FILTER_SANITIZE_STRING) : null)
+      (isset($data['descricao']) ? filter_var($data['descricao'], FILTER_SANITIZE_STRING) : null),
+      (isset($data['concluido']) ? filter_var($data['concluido'], FILTER_SANITIZE_NUMBER_INT) : null)
     );
   }
 
@@ -80,6 +81,9 @@ class TarefaController{
 
     if(strlen($tarefa->getDescricao()) < 10 || strlen($tarefa->getDescricao()) > 250)
     return  "invalid descricao";
+
+    if($tarefa->getConcluido()  == "" || strlen($tarefa->getConcluido()) > 15)
+    return "invalid concluido";
 
     return "";
   }

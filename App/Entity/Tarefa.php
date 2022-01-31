@@ -1,39 +1,54 @@
 <?php
-
 namespace App\Entity;
 
 class Tarefa{
-    private $id;
-    private $titulo;
-    private $descricao;
 
-    public function __construct ($id = '', $titulo = '', $descricao = ''){
-        $this->id = $id;
-        $this->titulo = $titulo;
-        $this->descricao = $descricao;
-    }
+	private $id;
+	private $titulo;
+	private $descricao;
+	private $concluido;
 
-    public function setId($id){
-        $this->id = $id;
-    }
+	//Constructor
 
-    public function setTitulo($titulo){
-        $this->titulo = $titulo;
-    }
+    // $tarefa = new Tarefa();
+	public function __construct($id = 0, $titulo = '', $descricao = '', $concluido = ''){
+		$this->id = $id;
+		$this->titulo = $titulo;
+		$this->descricao = $descricao;
+		$this->concluido = $concluido;
+	}
 
-    public function setDescricao($descricao){
-        $this->descricao = $descricao;
-    }
+	//Setters
+	public function setId($id){
+		$this->id = $id;
+	}
 
-    public function getId(){
-        return $this->id;
-    }
+	public function setTitulo($titulo){
+		$this->titulo = $titulo;
+	}
 
-    public function getTitulo(){
-        return $this->titulo;
-    }
+	public function setDescricao($descricao){
+		$this->descricao = $descricao;
+	}
 
-    public function getDescricao(){
-        return $this->descricao;
-    }
+	public function setConcluido($concluido){
+		$this->concluido = $concluido;
+	}
+
+	//Getter
+	public function getId(){
+		return $this->id;
+	}
+
+	public function getTitulo(){
+		return $this->titulo;
+	}
+
+	public function getDescricao(){
+		return $this->descricao;
+	}
+
+	public function getConcluido(){
+		return $this->concluido;
+	}
 }

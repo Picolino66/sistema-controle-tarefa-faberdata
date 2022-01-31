@@ -12,15 +12,15 @@ class TarefaModel{
     $this->load();
   }
 
-  public function getAll(){
+  public function readAll(){
     return (new Serialize())->serialize($this->listTarefa);
   }
 
-  public function getById($id){
+  public function readById($id){
 
-    foreach($this->listTarefa as $t){
-      if($t->getId() == $id)
-      return (new Serialize())->serialize($t);
+    foreach($this->listTarefa as $g){
+      if($g->getId() == $id)
+      return (new Serialize())->serialize($g);
     }
 
     return json_encode([]);
@@ -28,7 +28,7 @@ class TarefaModel{
 
   public function create(Tarefa $tarefa){
     $tarefa->setId($this->getLastId());
-
+    $tarefa->setConcluido(0);
     $this->listTarefa[] = $tarefa;
     $this->save();
 
@@ -68,11 +68,12 @@ class TarefaModel{
   private function save(){
     $temp = [];
 
-    foreach($this->listTarefa as $t){
+    foreach($this->listTarefa as $g){
       $temp[]       = [
-        "id"        => $t->getId(),
-        "titulo"    => $t->getTitulo(),
-        "descricao" => $t->getDescricao()
+        "id"        => $g->getId(),
+        "titulo"    => $g->getTitulo(),
+        "descricao" => $g->getDescricao(),
+        "concluido"   => $g->getConcluido()
       ];
 
       $fp = fopen($this->fileName, "w");
@@ -84,9 +85,9 @@ class TarefaModel{
   private function getLastId(){
     $lastId = 0;
 
-    foreach($this->listTarefa as $t){
-      if($t->getId() > $lastId)
-      $lastId = $t->getId();
+    foreach($this->listTarefa as $g){
+      if($g->getId() > $lastId)
+      $lastId = $g->getId();
     }
 
     return ($lastId + 1);
@@ -102,11 +103,12 @@ class TarefaModel{
 
     $arrayTarefa = json_decode($str);
 
-    foreach($arrayTarefa as $t){
+    foreach($arrayTarefa as $g){
       $this->listTarefa[] = new Tarefa(
-        $t->id,
-        $t->titulo,
-        $t->descricao
+        $g->id,
+        $g->titulo,
+        $g->descricao,
+        $g->concluido
       );
     }
   }

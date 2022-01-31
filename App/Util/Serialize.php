@@ -3,9 +3,6 @@ namespace App\Util;
 
 use ReflectionClass;
 
-/*
-https://github.com/victortassinari/PhpClassSerialization/blob/master/ClassSerialization.php
-*/
 class Serialize {
     private static function objToArray($obj) {
         $reflectionClass = new ReflectionClass($obj);
