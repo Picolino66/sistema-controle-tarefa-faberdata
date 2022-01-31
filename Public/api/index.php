@@ -42,7 +42,7 @@ switch($method) {
   if($controller != null && $param == null){
     echo $tarefaController->getAll();
   }elseif($controller != null && $param != null){
-    echo $tarefaController->getByparam($param);
+    echo $tarefaController->getById($param);
   }else{
     echo json_encode(["result" => "invalparam"]);
   }

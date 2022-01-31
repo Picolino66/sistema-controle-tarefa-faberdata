@@ -60,7 +60,7 @@ class TarefaModel{
     }
 
     $this->listTarefa = array_filter(array_values($this->listTarefa));
-
+    
     $this->save();
     return $result;
   }
