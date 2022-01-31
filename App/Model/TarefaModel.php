@@ -12,11 +12,11 @@ class TarefaModel{
     $this->load();
   }
 
-  public function readAll(){
+  public function getAll(){
     return (new Serialize())->serialize($this->listTarefa);
   }
 
-  public function readById($id){
+  public function getById($id){
 
     foreach($this->listTarefa as $g){
       if($g->getId() == $id)

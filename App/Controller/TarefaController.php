@@ -49,18 +49,18 @@ class TarefaController{
   }
 
   //GET - Retorna uma tarefa pelo ID
-  function readById($id = 0){
+  function getById($id = 0){
     $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
     if($id <= 0)
       return json_encode(["result" => "invalid id"]);
 
-      return $this->tarefaModel->readById($id);
+      return $this->tarefaModel->getById($id);
   }
 
   //GET - Retorna todos as tarefas
-  function readAll(){
-    return $this->tarefaModel->readAll();
+  function getAll(){
+    return $this->tarefaModel->getAll();
   }
 
   private function convertType($data){
@@ -81,9 +81,6 @@ class TarefaController{
 
     if(strlen($tarefa->getDescricao()) < 10 || strlen($tarefa->getDescricao()) > 250)
     return  "invalid descricao";
-
-    if($tarefa->getConcluido()  == "" || strlen($tarefa->getConcluido()) > 15)
-    return "invalid concluido";
 
     return "";
   }
