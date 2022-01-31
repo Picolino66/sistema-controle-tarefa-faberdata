@@ -1,0 +1,16 @@
+{
+    "name": "isaias/tarefa",
+    "description": "Projeto feito para a prova a t\u0000cnica do processo seletivo da Faberdata.",
+    "authors": [
+        {
+            "name": "Isaias",
+            "email": "isaiasbd@hotmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
