@@ -8,7 +8,7 @@ class TarefaModel{
   private $listTarefa = []; //Object type Tarefa
 
   public function __construct(){
-    $this->fileName = "../database/tarefa.db";
+    $this->fileName = "../../DataBase/tarefa.db";
     $this->load();
   }
 
@@ -37,7 +37,8 @@ class TarefaModel{
 
   public function update(Tarefa $tarefa){
     $result = "not found";
-
+    if ($tarefa->getConcluido() == null)
+      $tarefa->setConcluido(0);
     for($i = 0; $i < count($this->listTarefa); $i++){
       if($this->listTarefa[$i]->getId() == $tarefa->getId()){
         $this->listTarefa[$i] = $tarefa;

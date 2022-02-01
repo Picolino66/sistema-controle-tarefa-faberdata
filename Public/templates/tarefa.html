@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-lg-2">
+        <h3>Lista de Tarefas</h3>   
+    </div>
+    <label>Pesquisar por:<input type="text"  class="form-control"  ng-model="inputPesquisa"></label>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descrição</th>
+            <th>Concluído</th>
+            <th>Ação</th>
+            <th class="direita-maximo">
+                <div class="col-lg-2 float-right">
+                    <button style="width: 150px" type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#criarTarefaModal">Criar Tarefa</button> 
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="tarefas in std_ctrl.tarefa_list | filter: inputPesquisa">
+            <td>{{tarefas.Titulo}}</td>
+            <td><p class="resumo">{{tarefas.Descricao}}</p></td>
+            <td ng-if="tarefas.Concluido == 1">Concluída</td>
+            <td ng-if="tarefas.Concluido == 0">A fazer</td>
+            <td class="text-right" colspan="2">
+                <button type="button"  data-bs-toggle="modal"  class="btn btn-danger" ng-click="std_ctrl.deleteModalTarefa(tarefas.Id)">Deletar</button> 
+                <button  type="button" data-bs-toggle="modal" data-bs-target="#editModalTarefa_modal"  class="btn btn-primary" ng-click="std_ctrl.editModalTarefa(tarefas.Id)">Editar</button> 
+                <button type="button" data-bs-toggle="modal" data-bs-target="#viewTarefaDados_modal"  class="btn btn-success" ng-click="std_ctrl.getTarefa(tarefas.Id)">Visualizar</button>      
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="criarTarefaModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Criar Tarefa</h4>
+                </div>
+            <div class="modal-body">
+                <form method="post" id="criarTarefa" ng-submit="std_ctrl.addTarefa(tarefa)" >
+                    <div class="form-group">
+                        <label for="titulo">Título:</label>
+                        <input type="text" ng-model="tarefa.titulo" id="titulo" class="form-control" required maxlength="100" minLength="4">
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <textarea type="text" class="form-control" ng-model="tarefa.descricao" id="descricao" required maxlength="250" minLength="10"></textarea>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <input type="submit" class="btn btn-success"  value="Salvar"/>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="editModalTarefa_modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <form method="post"  id="editModalTarefa_frm" name="editModalTarefa_frm" ng-submit="std_ctrl.updateTarefa(std_ctrl.tarefaDados.Id, std_ctrl.tarefaDados)">
+                    <input ng-model="std_ctrl.tarefaDados.Id" type="hidden" />
+                    <div class="form-group">
+                        <label >Titulo:</label>
+                        <input type="text"  ng-model="std_ctrl.tarefaDados.Titulo"  class="form-control" required maxlength="100" minLength="4">  
+                    </div>
+                    <div class="form-group">
+                        <label >Descrição:</label>
+                        <textarea type="text" class="form-control" ng-model="std_ctrl.tarefaDados.Descricao" required maxlength="250" minLength="10"></textarea>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label >Concluído:</label>
+                        <input type="checkbox" ng-checked="std_ctrl.tarefaDados.Concluido == 1" class="form-check-input" id="ipunt-checkbox" ng-model="std_ctrl.tarefaDados.Concluido">
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <input type="submit" class="btn btn-success" value="Atualizar"/>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="viewTarefaDados_modal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">>
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tarefa dados</h4>
+            </div>
+            <div class="modal-body" >
+                <div class="form-group">
+                    <label >Título: </label>
+                    {{std_ctrl.viewTarefaDados.Titulo}}
+                </div>
+                <div class="form-group">
+                    <label >Descrição: </label>
+                    <p  style="word-wrap: break-word;">{{std_ctrl.viewTarefaDados.Descricao}}</p>
+                </div>
+                <div class="form-group">
+                    <label >Concluído: </label>
+                    {{std_ctrl.viewTarefaDados.Concluido}}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div> 

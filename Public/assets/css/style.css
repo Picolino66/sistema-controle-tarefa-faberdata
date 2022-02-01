@@ -1,0 +1,52 @@
+body { 
+  padding-top: 80px; 
+}
+
+footer {
+  background-color: rgb(207, 207, 207);
+  color: rgb(26, 26, 26);
+  padding: 15px;
+	bottom:0;
+	width:100%;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-around;
+  min-height:600px
+}
+
+.row.content {
+  min-height:800px
+}
+
+.container{
+  max-width: 95% !important;
+}
+
+.direita-maximo{
+  display: inline;
+  float: right;
+}
+
+.resumo{
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}   
+.table > tbody > tr > td{
+  padding: 5px;
+  vertical-align: middle;
+}
+
+
+@media screen and (max-width: 767px) {
+  .row.content {
+    height:100%;
+  } 
+}

@@ -66,9 +66,9 @@ class TarefaController{
   private function convertType($data){
     return new Tarefa(
       null,
-      (isset($data['titulo']) ? filter_var($data['titulo'], FILTER_SANITIZE_STRING) : null),
-      (isset($data['descricao']) ? filter_var($data['descricao'], FILTER_SANITIZE_STRING) : null),
-      (isset($data['concluido']) ? filter_var($data['concluido'], FILTER_SANITIZE_NUMBER_INT) : null)
+      (isset($data->titulo) ? filter_var($data->titulo, FILTER_SANITIZE_STRING) : null),
+      (isset($data->descricao) ? filter_var($data->descricao, FILTER_SANITIZE_STRING) : null),
+      (isset($data->concluido) ? filter_var($data->concluido, FILTER_SANITIZE_NUMBER_INT) : null)
     );
   }
 

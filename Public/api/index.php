@@ -15,7 +15,9 @@ $data = null;
 $method = $_SERVER["REQUEST_METHOD"];
 $uri = $_SERVER["REQUEST_URI"];
 
-parse_str(file_get_contents('php://input'), $data);
+$data = file_get_contents("php://input");
+$request = json_decode($data);
+//parse_str(file_get_contents('php://input'), $data);
 
 /*Tratamento de URL*/
 $unsetCount = 3;
@@ -34,7 +36,7 @@ if(isset($ex[1])){
 }
 
 /*Rotas*/
-if ($controller == 'TarefaController'){
+if ($controller == 'Tarefa'){
     $tarefaController = new TarefaController();
 }
 switch($method) {
@@ -50,7 +52,7 @@ switch($method) {
 
   case 'POST':
   if($controller != null && $param == null){
-    echo $tarefaController->create($data);
+    echo $tarefaController->create($request);
   }else{
     echo json_encode(["result" => "invalparam"]);
   }
@@ -58,7 +60,7 @@ switch($method) {
 
   case 'PUT':
   if($controller != null && $param != null){
-    echo $tarefaController->update($param, $data);
+    echo $tarefaController->update($param, $request);
   }else{
     echo json_encode(["result" => "invalparam"]);
   }
